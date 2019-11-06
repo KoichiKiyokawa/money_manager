@@ -65,7 +65,8 @@ public class MainController implements Initializable {
 			MoneyHistory newHistory = new MoneyHistory(category.getValue(), item.getText(),
 					Integer.valueOf(price.getText()));
 			history.getItems().add(newHistory);
-			
+
+			// 選択, 入力を初期化
 			category.setValue(null);
 			item.setText("");
 			price.setText("");
