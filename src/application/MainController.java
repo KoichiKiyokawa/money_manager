@@ -87,6 +87,7 @@ public class MainController implements Initializable {
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setScene(scene);
+			stage.setTitle("Money Managerについて");
 			stage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
