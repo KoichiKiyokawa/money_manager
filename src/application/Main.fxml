@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -92,7 +93,10 @@
                      </TableView>
                   </children></VBox>
           </Tab>
-          <Tab text="グラフ" />
+          <Tab text="グラフ">
+               <content>
+                  <PieChart />
+               </content></Tab>
         </tabs>
       </TabPane>
    </center>

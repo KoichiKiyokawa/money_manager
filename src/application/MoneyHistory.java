@@ -2,21 +2,21 @@ package application;
 
 public class MoneyHistory {
 
-	private String category; // TODO: class or interface
+	private CategoryEnum category; // TODO: class or interface
 	private String item;
 	private int price;
 
-	public MoneyHistory(String category, String item, int price) {
+	public MoneyHistory(CategoryEnum category, String item, int price) {
 		this.category = category;
 		this.item = item;
 		this.price = price;
 	}
 
-	public String getCategory() {
+	public CategoryEnum getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(CategoryEnum category) {
 		this.category = category;
 	}
 
