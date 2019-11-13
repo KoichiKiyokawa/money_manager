@@ -104,7 +104,7 @@ public class MainController implements Initializable {
 		try {
 			for(String line: Files.readAllLines(outputCSVPath,Charset.forName("UTF-8"))) {
 				String[] cols = line.split(","); // category, item, price の順に保存されている
-				CategoryEnum category = CategoryEnum.getCategoryByText(cols[0]);
+				CategoryEnum category = CategoryEnum.valueOf(cols[0]);
 				String item = cols[1];
 				int price = Integer.valueOf(cols[2]);
 				moneyHistories.add(new MoneyHistory(category, item, price));

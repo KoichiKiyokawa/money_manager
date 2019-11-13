@@ -2,7 +2,7 @@ package application;
 
 public class MoneyHistory {
 
-	private CategoryEnum category; // TODO: class or interface
+	private CategoryEnum category;
 	private String item;
 	private int price;
 
@@ -38,6 +38,6 @@ public class MoneyHistory {
 	
 	@Override
 	public String toString() {
-		return String.format("%s,%s,%d", category.toString(), item, price);
+		return String.format("%s,%s,%d", category.name(), item, price);
 	}
 }
