@@ -27,3 +27,6 @@ local.properties
 # JavaFX
 build.fxbuild
 
+# output file
+history.csv
+
