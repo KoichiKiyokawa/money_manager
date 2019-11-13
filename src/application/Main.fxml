@@ -95,7 +95,7 @@
           </Tab>
           <Tab text="グラフ">
                <content>
-                  <PieChart />
+                  <PieChart fx:id="categoryChart" title="カテゴリごとの出費" />
                </content></Tab>
         </tabs>
       </TabPane>

@@ -1,8 +1,9 @@
 package application;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import javafx.collections.ObservableList;
 
 /**
  * カテゴリー(食費、交通費、、、)ごとの金額を集計するクラス
@@ -11,12 +12,15 @@ import java.util.Map;
  */
 public class Aggregation {
 
-	public static Map<CategoryEnum, Integer> aggregate(List<MoneyHistory> moneyHistories) {
+	public static Map<CategoryEnum, Integer> aggregate(ObservableList<MoneyHistory> moneyHistories) {
+		// key: カテゴリー, value: そのカテゴリーの合計値
 		Map<CategoryEnum, Integer> category2priceSum = new HashMap<>();
 		for (CategoryEnum category : CategoryEnum.values()) {
+			// それぞれのカテゴリーの合計値を0で初期化
 			category2priceSum.put(category, 0);
 		}
 
+		// 足し上げる
 		for (MoneyHistory history : moneyHistories) {
 			int currentCateroryPrice = category2priceSum.get(history.getCategory());
 			category2priceSum.replace(history.getCategory(), currentCateroryPrice + history.getPrice());

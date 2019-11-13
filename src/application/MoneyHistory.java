@@ -35,4 +35,9 @@ public class MoneyHistory {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s,%s,%d", category.toString(), item, price);
+	}
 }

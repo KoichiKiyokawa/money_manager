@@ -9,6 +9,21 @@ public enum CategoryEnum {
 		this.text = text;
 	}
 
+	/**
+	 * 日本語名からenumを取得する
+	 * ex) getCategoryByText("食費") => food
+	 * @param text {String} 日本語名
+	 */
+	public static CategoryEnum getCategoryByText(String text) {
+		for (CategoryEnum category : CategoryEnum.values()) {
+			if (category.toString().equals(text)) {
+				return category;
+			}
+		}
+
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		return text;
