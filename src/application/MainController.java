@@ -18,7 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -58,11 +60,15 @@ public class MainController implements Initializable {
 	@FXML
 	public PieChart categoryChart;
 
+	@FXML
+	public LineChart<DateOfUse, Integer> report;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initComboBox();
 		initTableView();
 		updateChart();
+		updateReport();
 	}
 
 	/**
@@ -105,18 +111,18 @@ public class MainController implements Initializable {
 
 		List<MoneyHistory> moneyHistories = new ArrayList<>();
 		try {
-			for(String line: Files.readAllLines(outputCSVPath,Charset.forName("UTF-8"))) {
+			for (String line : Files.readAllLines(outputCSVPath, Charset.forName("UTF-8"))) {
 				String[] cols = line.split(","); // date, category, item, price の順に保存されている
 				DateOfUse dateOfUse = new DateOfUse(cols[0]);
 				CategoryEnum category = CategoryEnum.valueOf(cols[1]);
 				String item = cols[2];
 				int price = Integer.valueOf(cols[3]);
-				moneyHistories.add(new MoneyHistory(dateOfUse,category , item, price));
+				moneyHistories.add(new MoneyHistory(dateOfUse, category, item, price));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return moneyHistories;
 	}
 
@@ -125,10 +131,23 @@ public class MainController implements Initializable {
 	 */
 	private void updateChart() {
 		ObservableList<PieChart.Data> categoryChartData = FXCollections.observableArrayList();
-		for (Map.Entry<CategoryEnum, Integer> entry : Aggregation.aggregate(history.getItems()).entrySet()) {
+		Aggregation<CategoryEnum> categoryAggregation = new CategoryAggregation();
+		for (Map.Entry<CategoryEnum, Integer> entry : categoryAggregation.aggregate(history.getItems()).entrySet()) {
 			categoryChartData.add(new PieChart.Data(entry.getKey().toString(), entry.getValue()));
 		}
 		categoryChart.setData(categoryChartData);
+	}
+
+	/**
+	 * 日付ごとの集計を表示
+	 */
+	private void updateReport() {
+		Aggregation<DateOfUse> dateAggregation = new DateAggregation();
+		XYChart.Series<DateOfUse, Integer> series = new XYChart.Series<>();
+		for (Map.Entry<DateOfUse, Integer> date2price : dateAggregation.aggregate(history.getItems()).entrySet()) {
+			series.getData().add(new XYChart.Data<DateOfUse, Integer>(date2price.getKey(), date2price.getValue()));
+		}
+		report.getData().add(series);
 	}
 
 	/**
@@ -164,6 +183,7 @@ public class MainController implements Initializable {
 			history.getItems().add(newHistory);
 			initIntput();
 			updateChart();
+			updateReport();
 			saveHistory();
 		} catch (NumberFormatException e) {
 			// 金額のところに数字以外が表示されていたら、追加しない
