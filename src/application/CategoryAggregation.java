@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 public class CategoryAggregation extends Aggregation<CategoryEnum> {
 
 	@Override
-	public Map<CategoryEnum, Integer> aggregate(ObservableList<MoneyHistory> moneyHistories) {
+	public void aggregate(ObservableList<MoneyHistory> moneyHistories) {
 		// key: カテゴリー, value: そのカテゴリーの合計値
 		Map<CategoryEnum, Integer> category2priceSum = new HashMap<>();
 		for (CategoryEnum category : CategoryEnum.values()) {
@@ -27,6 +27,6 @@ public class CategoryAggregation extends Aggregation<CategoryEnum> {
 			category2priceSum.replace(history.getCategory(), currentCateroryPrice + history.getPrice());
 		}
 
-		return category2priceSum;
+		setResult(category2priceSum);
 	}
 }

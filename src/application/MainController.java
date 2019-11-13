@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,10 +24,12 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -59,6 +62,8 @@ public class MainController implements Initializable {
 
 	@FXML
 	public PieChart categoryChart;
+	@FXML
+	public Label pieCaption;
 
 	@FXML
 	public LineChart<String, Number> reportChart;
@@ -75,7 +80,6 @@ public class MainController implements Initializable {
 	 * カテゴリーの選択ボックスを初期化
 	 */
 	private void initComboBox() {
-		// TODO:
 		category.getItems().setAll(CategoryEnum.values());
 	}
 
@@ -132,10 +136,24 @@ public class MainController implements Initializable {
 	private void updateChart() {
 		ObservableList<PieChart.Data> categoryChartData = FXCollections.observableArrayList();
 		Aggregation<CategoryEnum> categoryAggregation = new CategoryAggregation();
-		for (Map.Entry<CategoryEnum, Integer> entry : categoryAggregation.aggregate(history.getItems()).entrySet()) {
-			categoryChartData.add(new PieChart.Data(entry.getKey().toString(), entry.getValue()));
+		categoryAggregation.aggregate(history.getItems());
+		for (Map.Entry<CategoryEnum, Integer> entry : categoryAggregation.getResult().entrySet()) {
+			categoryChartData.add(new PieChart.Data(String.format("%s%.1f%%", entry.getKey().toString(),
+					categoryAggregation.getPercentage(entry.getKey())), entry.getValue()));
 		}
 		categoryChart.setData(categoryChartData);
+
+		// クリック時に合計金額を表示する
+		for (PieChart.Data pieData : categoryChart.getData()) {
+			pieData.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					pieCaption.setTranslateX(event.getSceneX());
+					pieCaption.setTranslateY(event.getSceneY());
+					pieCaption.setText(String.format("%d円", (int) pieData.getPieValue()));
+				};
+			});
+		}
 	}
 
 	/**
@@ -143,9 +161,10 @@ public class MainController implements Initializable {
 	 */
 	private void updateReport() {
 		Aggregation<DateOfUse> dateAggregation = new DateAggregation();
+		dateAggregation.aggregate(history.getItems());
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		series.setName("金額");
-		for (Map.Entry<DateOfUse, Integer> date2price : dateAggregation.aggregate(history.getItems()).entrySet()) {
+		for (Map.Entry<DateOfUse, Integer> date2price : dateAggregation.getResult().entrySet()) {
 			series.getData()
 					.add(new XYChart.Data<String, Number>(date2price.getKey().toString(), date2price.getValue()));
 		}

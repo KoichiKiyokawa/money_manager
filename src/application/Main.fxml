@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -18,6 +20,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -100,7 +103,23 @@
 				</Tab>
 				<Tab text="グラフ">
 					<content>
-						<PieChart fx:id="categoryChart" title="カテゴリごとの出費" />
+						<Pane nodeOrientation="LEFT_TO_RIGHT">
+								<children>
+									<PieChart fx:id="categoryChart" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" title="カテゴリごとの出費">
+										<cursor>
+											<Cursor fx:constant="HAND" />
+										</cursor>
+									</PieChart>
+									<Label fx:id="pieCaption" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" textAlignment="CENTER">
+										<font>
+											<Font size="24.0" />
+										</font>
+										<rotationAxis>
+											<Point3D z="10.0" />
+										</rotationAxis>
+									</Label>
+								</children>
+						</Pane>
 					</content>
 				</Tab>
 				<Tab text="レポート">

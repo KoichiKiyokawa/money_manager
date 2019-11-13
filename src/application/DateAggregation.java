@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
  */
 public class DateAggregation extends Aggregation<DateOfUse> {
 	@Override
-	public Map<DateOfUse, Integer> aggregate(ObservableList<MoneyHistory> moneyHistories) {
+	public void aggregate(ObservableList<MoneyHistory> moneyHistories) {
 		Map<DateOfUse, Integer> date2priceSum = new TreeMap<>(); 
 		for (MoneyHistory history:moneyHistories) {
 			DateOfUse key = history.getDate();
@@ -25,6 +25,6 @@ public class DateAggregation extends Aggregation<DateOfUse> {
 		}
 		
 		
-		return date2priceSum;
+		setResult(date2priceSum);
 	}
 }
