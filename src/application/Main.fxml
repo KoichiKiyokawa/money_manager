@@ -83,6 +83,7 @@
                      </HBox>
                      <TableView fx:id="history" prefHeight="200.0">
                        <columns>
+                           <TableColumn fx:id="dateCol" prefWidth="75.0" text="日付" />
                          <TableColumn fx:id="categoryCol" minWidth="-Infinity" prefWidth="-1.0" text="カテゴリ" />
                          <TableColumn fx:id="itemCol" minWidth="-Infinity" prefWidth="-1.0" text="品目" />
                            <TableColumn fx:id="priceCol" minWidth="-Infinity" prefWidth="-1.0" text="金額" />

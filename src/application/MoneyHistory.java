@@ -2,14 +2,28 @@ package application;
 
 public class MoneyHistory {
 
+	private DateOfUse date;
 	private CategoryEnum category;
 	private String item;
 	private int price;
 
-	public MoneyHistory(CategoryEnum category, String item, int price) {
+	public DateOfUse getDate() {
+		return date;
+	}
+
+	public void setDate(DateOfUse date) {
+		this.date = date;
+	}
+
+	public MoneyHistory(DateOfUse date, CategoryEnum category, String item, int price) {
+		this.date = date;
 		this.category = category;
 		this.item = item;
 		this.price = price;
+	}
+
+	public MoneyHistory(CategoryEnum category, String item, int price) {
+		this(new DateOfUse(), category, item, price);
 	}
 
 	public CategoryEnum getCategory() {
@@ -35,9 +49,8 @@ public class MoneyHistory {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	@Override
-	public String toString() {
-		return String.format("%s,%s,%d", category.name(), item, price);
+
+	public String toCSV() {
+		return String.format("%s,%s,%s,%d", date, category.name(), item, price);
 	}
 }

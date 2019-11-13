@@ -29,7 +29,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
-	
+
 	private final Path outputCSVPath = Paths.get("history.csv");
 	@FXML
 	public ComboBox<CategoryEnum> category;
@@ -46,6 +46,8 @@ public class MainController implements Initializable {
 	// Table
 	@FXML
 	public TableView<MoneyHistory> history;
+	@FXML
+	public TableColumn<MoneyHistory, String> dateCol;
 	@FXML
 	public TableColumn<MoneyHistory, String> categoryCol;
 	@FXML
@@ -77,6 +79,7 @@ public class MainController implements Initializable {
 	private void initTableView() {
 		ObservableList<MoneyHistory> moneyHistory = FXCollections.observableArrayList(loadHistory());
 		history.setItems(moneyHistory);
+		dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 		categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 		itemCol.setCellValueFactory(new PropertyValueFactory<>("item"));
 		priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -90,7 +93,7 @@ public class MainController implements Initializable {
 		item.setText("");
 		price.setText("");
 	}
-	
+
 	/**
 	 * ./history.csvファイルに保存されている履歴を読み込む
 	 * @return 履歴のリスト
@@ -103,11 +106,12 @@ public class MainController implements Initializable {
 		List<MoneyHistory> moneyHistories = new ArrayList<>();
 		try {
 			for(String line: Files.readAllLines(outputCSVPath,Charset.forName("UTF-8"))) {
-				String[] cols = line.split(","); // category, item, price の順に保存されている
-				CategoryEnum category = CategoryEnum.valueOf(cols[0]);
-				String item = cols[1];
-				int price = Integer.valueOf(cols[2]);
-				moneyHistories.add(new MoneyHistory(category, item, price));
+				String[] cols = line.split(","); // date, category, item, price の順に保存されている
+				DateOfUse dateOfUse = new DateOfUse(cols[0]);
+				CategoryEnum category = CategoryEnum.valueOf(cols[1]);
+				String item = cols[2];
+				int price = Integer.valueOf(cols[3]);
+				moneyHistories.add(new MoneyHistory(dateOfUse,category , item, price));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -133,7 +137,7 @@ public class MainController implements Initializable {
 	private void saveHistory() {
 		List<String> lines = new ArrayList<>();
 		for (MoneyHistory his : history.getItems()) {
-			lines.add(his.toString());
+			lines.add(his.toCSV());
 		}
 		try {
 			if (!Files.exists(outputCSVPath)) {
@@ -162,6 +166,7 @@ public class MainController implements Initializable {
 			updateChart();
 			saveHistory();
 		} catch (NumberFormatException e) {
+			// 金額のところに数字以外が表示されていたら、追加しない
 			return;
 		}
 	}
