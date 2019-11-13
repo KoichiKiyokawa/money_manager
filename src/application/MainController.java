@@ -91,11 +91,19 @@ public class MainController implements Initializable {
 		price.setText("");
 	}
 	
+	/**
+	 * ./history.csvファイルに保存されている履歴を読み込む
+	 * @return 履歴のリスト
+	 */
 	private List<MoneyHistory> loadHistory() {
+		if (!Files.exists(outputCSVPath)) {
+			return new ArrayList<MoneyHistory>();
+		}
+
 		List<MoneyHistory> moneyHistories = new ArrayList<>();
 		try {
 			for(String line: Files.readAllLines(outputCSVPath,Charset.forName("UTF-8"))) {
-				String[] cols = line.split(",");
+				String[] cols = line.split(","); // category, item, price の順に保存されている
 				CategoryEnum category = CategoryEnum.getCategoryByText(cols[0]);
 				String item = cols[1];
 				int price = Integer.valueOf(cols[2]);
