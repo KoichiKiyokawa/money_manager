@@ -105,7 +105,7 @@
 				</Tab>
 				<Tab text="レポート">
 					<content>
-						<LineChart fx:id="report" layoutX="-11.0" layoutY="21.0" prefHeight="464.0" prefWidth="578.0" title="日ごと">
+						<LineChart fx:id="reportChart" title="日付ごとの使用金額">
 							<xAxis>
 								<CategoryAxis label="日付" side="BOTTOM" />
 							</xAxis>

@@ -61,7 +61,7 @@ public class MainController implements Initializable {
 	public PieChart categoryChart;
 
 	@FXML
-	public LineChart<DateOfUse, Integer> report;
+	public LineChart<String, Number> reportChart;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -143,11 +143,13 @@ public class MainController implements Initializable {
 	 */
 	private void updateReport() {
 		Aggregation<DateOfUse> dateAggregation = new DateAggregation();
-		XYChart.Series<DateOfUse, Integer> series = new XYChart.Series<>();
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		series.setName("金額");
 		for (Map.Entry<DateOfUse, Integer> date2price : dateAggregation.aggregate(history.getItems()).entrySet()) {
-			series.getData().add(new XYChart.Data<DateOfUse, Integer>(date2price.getKey(), date2price.getValue()));
+			series.getData()
+					.add(new XYChart.Data<String, Number>(date2price.getKey().toString(), date2price.getValue()));
 		}
-		report.getData().add(series);
+		reportChart.getData().add(series);
 	}
 
 	/**

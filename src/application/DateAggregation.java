@@ -1,7 +1,7 @@
 package application;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
 
@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 public class DateAggregation extends Aggregation<DateOfUse> {
 	@Override
 	public Map<DateOfUse, Integer> aggregate(ObservableList<MoneyHistory> moneyHistories) {
-		Map<DateOfUse, Integer> date2priceSum = new HashMap<>(); 
+		Map<DateOfUse, Integer> date2priceSum = new TreeMap<>(); 
 		for (MoneyHistory history:moneyHistories) {
 			DateOfUse key = history.getDate();
 			if (date2priceSum.containsKey(key)) {
@@ -23,6 +23,7 @@ public class DateAggregation extends Aggregation<DateOfUse> {
 				date2priceSum.put(key, 0);
 			}
 		}
+		
 		
 		return date2priceSum;
 	}

@@ -2,7 +2,7 @@ package application;
 
 import java.util.Calendar;
 
-public class DateOfUse {
+public class DateOfUse implements Comparable<DateOfUse> {
 
 	private int year;
 	private int month;
@@ -38,5 +38,20 @@ public class DateOfUse {
 	@Override
 	public String toString() {
 		return String.format("%d/%d/%d", year, month, day);
+	}
+
+	@Override
+	public int compareTo(DateOfUse otherDate) {
+		if (this.year == otherDate.year && this.month == otherDate.month && this.day == otherDate.day) {
+			return 0;
+		} else if (this.year < otherDate.year) {
+			return -1;
+		} else if (this.month < otherDate.month) {
+			return -1;
+		} else if (this.day < otherDate.day) {
+			return -1;
+		}
+
+		return 1;
 	}
 }
