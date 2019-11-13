@@ -29,8 +29,10 @@ public class DateOfUse {
 	 * 何も引数を指定しなかった場合は今日の年月日で初期化
 	 */
 	public DateOfUse() {
-		this(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONDAY),
-				Calendar.getInstance().get(Calendar.DATE));
+		Calendar calendar = Calendar.getInstance();
+		this.year = calendar.get(Calendar.YEAR);
+		this.month = calendar.get(Calendar.MONTH);
+		this.day = calendar.get(Calendar.DATE);
 	}
 
 	@Override
