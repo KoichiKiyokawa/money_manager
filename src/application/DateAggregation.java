@@ -23,8 +23,7 @@ public class DateAggregation extends Aggregation<DateOfUse> {
 				date2priceSum.put(key, 0);
 			}
 		}
-		
-		
+
 		setResult(date2priceSum);
 	}
 }
