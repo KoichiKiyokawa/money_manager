@@ -20,7 +20,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -103,9 +103,9 @@
 				</Tab>
 				<Tab text="グラフ">
 					<content>
-						<Pane nodeOrientation="LEFT_TO_RIGHT">
+						<StackPane nodeOrientation="LEFT_TO_RIGHT">
 								<children>
-									<PieChart fx:id="categoryChart" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" title="カテゴリごとの出費">
+									<PieChart fx:id="categoryChart" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" title="カテゴリごとの出費">
 										<cursor>
 											<Cursor fx:constant="HAND" />
 										</cursor>
@@ -119,7 +119,7 @@
 										</rotationAxis>
 									</Label>
 								</children>
-						</Pane>
+						</StackPane>
 					</content>
 				</Tab>
 				<Tab text="レポート">

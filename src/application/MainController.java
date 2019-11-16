@@ -148,8 +148,8 @@ public class MainController implements Initializable {
 			pieData.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					pieCaption.setTranslateX(event.getSceneX());
-					pieCaption.setTranslateY(event.getSceneY());
+					pieCaption.setTranslateX(event.getX());
+					pieCaption.setTranslateY(event.getY());
 					pieCaption.setText(String.format("%d円", (int) pieData.getPieValue()));
 				};
 			});
