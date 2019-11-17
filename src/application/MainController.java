@@ -12,6 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import application.aggregation.Aggregation;
+import application.aggregation.CategoryAggregation;
+import application.aggregation.DateAggregation;
+import application.model.CategoryEnum;
+import application.model.DateOfUse;
+import application.model.MoneyHistory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

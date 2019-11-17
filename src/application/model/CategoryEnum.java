@@ -1,4 +1,4 @@
-package application;
+package application.model;
 
 public enum CategoryEnum {
 	food("食費"), transportation("交通費"), hoby("娯楽"), other("その他");

@@ -1,8 +1,10 @@
-package application;
+package application.aggregation;
 
 import java.util.Map;
 import java.util.TreeMap;
 
+import application.model.DateOfUse;
+import application.model.MoneyHistory;
 import javafx.collections.ObservableList;
 
 /**

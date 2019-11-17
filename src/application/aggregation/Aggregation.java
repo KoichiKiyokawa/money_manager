@@ -1,7 +1,8 @@
-package application;
+package application.aggregation;
 
 import java.util.Map;
 
+import application.model.MoneyHistory;
 import javafx.collections.ObservableList;
 
 /**
