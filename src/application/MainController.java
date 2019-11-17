@@ -174,6 +174,7 @@ public class MainController implements Initializable {
 			series.getData()
 					.add(new XYChart.Data<String, Number>(date2price.getKey().toString(), date2price.getValue()));
 		}
+		reportChart.getData().clear();
 		reportChart.getData().add(series);
 	}
 
