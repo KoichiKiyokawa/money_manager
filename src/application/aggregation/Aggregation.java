@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 /**
  * 
  * @author koichi
- *p
+ *
  * @param <T> T型についての集計を表す抽象クラス
  */
 public abstract class Aggregation<T> {
