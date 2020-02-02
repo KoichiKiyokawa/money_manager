@@ -1,5 +1,7 @@
 # money_manager
-Java製のGUI家計簿アプリ
+Java製のGUI家計簿アプリ  
+![money_manager](https://user-images.githubusercontent.com/40315079/73604795-dca14e00-45d9-11ea-8240-efaa58e6ba2e.gif)
+
 
 ## 機能
 ### 使った金額を入力
